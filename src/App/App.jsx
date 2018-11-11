@@ -30,7 +30,7 @@ class App extends PureComponent {
 
     return (
       <div className="app">
-        <h1>Postgres Visualize</h1>
+        <h1>Postgres Visualizer</h1>
         <Dashboard
           setData={this.setData}
           highlight={highlight}
