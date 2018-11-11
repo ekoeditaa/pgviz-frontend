@@ -1,0 +1,9 @@
+.tree {
+  margin: 80px 0;
+  text-align: center;
+}
+
+.tree__node:hover {
+  fill: #336791;
+  cursor: default;
+}

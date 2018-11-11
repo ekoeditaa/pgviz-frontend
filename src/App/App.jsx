@@ -8,18 +8,25 @@ class App extends PureComponent {
   state = {
     data: null,
     highlight: null,
+    details: null,
+    detailsPosition: null,
   };
 
   setData = data => this.setState({ data })
 
-  doHighlight = (start, end) => this.setState({
-    highlight: [start, end],
-  })
+  setDetails = details => this.setState({ details })
 
-  clearHighlight = () => this.setState({ highlight: null })
+  setDetailsPosition = detailsPosition => this.setState({ detailsPosition })
+
+  doHighlight = highlight => this.setState({ highlight })
 
   render() {
-    const { data, highlight } = this.state;
+    const {
+      data,
+      details,
+      detailsPosition,
+      highlight,
+    } = this.state;
 
     return (
       <div className="app">
@@ -27,10 +34,14 @@ class App extends PureComponent {
         <Dashboard
           setData={this.setData}
           highlight={highlight}
+          details={details}
+          detailsPosition={detailsPosition}
         />
         <Tree
           data={data}
           doHighlight={this.doHighlight}
+          setDetails={this.setDetails}
+          setDetailsPosition={this.setDetailsPosition}
         />
       </div>
     );

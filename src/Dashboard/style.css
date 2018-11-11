@@ -1,7 +1,55 @@
-.dashboard {}
+.dashboard {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
 
-.dashboard > button {}
+.dashboard__col {
+  flex-basis: 50%;
+  margin: 10px;
+  box-sizing: border-box;
+}
 
-.dashboard__query-input {}
+.dashboard .outlined {
+  border: 1px solid #EEE;
+}
 
-.dashboard__sent-query {}
+.dashboard__query-input {
+  resize: none;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 160px;
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #CCC;
+  box-shadow: 0 2px 10px -3px rgba(0, 0, 0, .2);
+}
+
+.dashboard__query-input:hover {
+  border: 1px solid #AAA;
+}
+
+.dashboard__query-input:active {
+  border: 1px solid #888;
+}
+
+.dashboard__explain-button {
+  float: right;
+}
+
+.dashboard__sent-query {
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+
+.dashboard__sent-query code {
+  line-height: 150%;
+}
+
+.dashboard__details {
+  position: fixed;
+  border-radius: 8px;
+  pointer-events: none;
+  transform: translate(-10px, 30px);
+}

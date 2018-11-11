@@ -1,28 +1,55 @@
 import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
+import { event } from 'd3';
 
-import { createTree } from './tree-utils';
+import { createTree, clearTree } from './tree-utils';
 import { transformToTree } from './utils';
+
+import './style.css';
 
 class Tree extends PureComponent {
   root = createRef();
 
   componentDidUpdate(prevProps) {
-    const { data, doHighlight } = this.props;
+    const { data } = this.props;
     if (data !== prevProps.data) {
       const treeData = transformToTree(data);
-      createTree(treeData, this.root.current, this.handleNodeHover);
+      clearTree(this.root.current);
+      createTree(
+        treeData,
+        this.root.current,
+        this.handleNodeEnter,
+        this.handleNodeLeave,
+      );
     }
   }
 
-  handleNodeHover = (d) => {
-    const { doHighlight } = this.props;
-    console.log(d);
+  handleNodeEnter = (node) => {
+    const {
+      doHighlight,
+      setDetails,
+      setDetailsPosition,
+    } = this.props;
+
+    const { top, left } = event.target.getBoundingClientRect();
+    const { highlight, details } = node.data;
+    if (highlight) doHighlight(highlight);
+    setDetails(details);
+    setDetailsPosition({ top, left });
+  }
+
+  handleNodeLeave = () => {
+    const { doHighlight, setDetails } = this.props;
+
+    doHighlight(null);
+    setDetails(null);
   }
 
   render() {
     return (
-      <svg ref={this.root} />
+      <div className="tree">
+        <svg ref={this.root} />
+      </div>
     );
   }
 }
@@ -33,6 +60,8 @@ Tree.propTypes = {
     Plans: PropTypes.array,
   }),
   doHighlight: PropTypes.func.isRequired,
+  setDetails: PropTypes.func.isRequired,
+  setDetailsPosition: PropTypes.func.isRequired,
 };
 
 export default Tree;
