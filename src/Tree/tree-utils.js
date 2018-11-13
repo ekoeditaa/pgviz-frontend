@@ -5,13 +5,14 @@ import {
   linkHorizontal,
 } from 'd3';
 
-const width = 932;
+const width = 950;
 
 const customTree = data => {
   const root = hierarchy(data);
+
   root.dx = 40;
-  console.log(data)
-  root.dy = width / (root.height + 1);
+  root.dy = Math.max(width / (root.height + 1), 120);
+
   return tree().nodeSize([root.dx, root.dy])(root);
 }
 
@@ -41,7 +42,7 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
   const g = svg.append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 16)
-      .attr('transform', `translate(50,${root.dx - x0})`);
+      .attr('transform', `translate(120,${root.dx - x0})`);
 
   g.append('g')
     .attr('fill', 'none')

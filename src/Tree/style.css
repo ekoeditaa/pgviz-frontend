@@ -1,5 +1,7 @@
 .tree {
-  margin: 80px 0;
+  margin: 80px auto;
+  max-width: 90%;
+  overflow-x: scroll;
   text-align: center;
 }
 
