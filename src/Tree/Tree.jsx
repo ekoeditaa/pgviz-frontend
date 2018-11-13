@@ -1,6 +1,7 @@
 import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { event } from 'd3';
+import swal from 'sweetalert2';
 
 import { createTree, clearTree } from './tree-utils';
 import { transformToTree } from './utils';
@@ -12,7 +13,14 @@ class Tree extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { data } = this.props;
-    if (data !== prevProps.data) {
+
+    if (data['success'] === 'false') {
+      swal({
+        type: 'error',
+        title: 'Oops...',
+        text: 'There was an error with the query. Try another one!',
+      })
+    } else if (data !== prevProps.data) {
       const treeData = transformToTree(data);
       clearTree(this.root.current);
       createTree(
