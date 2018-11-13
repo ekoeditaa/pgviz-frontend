@@ -45,9 +45,20 @@ class Tree extends PureComponent {
     setDetails(null);
   }
 
+  handleWheel = (e) => {
+    e.preventDefault();
+
+    const container = e.currentTarget;
+    container.scrollLeft += e.deltaY;
+    container.scrollLeft += e.deltaX;
+  }
+
   render() {
     return (
-      <div className="tree">
+      <div
+        className="tree"
+        onWheel={this.handleWheel}
+      >
         <svg ref={this.root} />
       </div>
     );
