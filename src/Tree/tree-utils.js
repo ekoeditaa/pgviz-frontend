@@ -5,7 +5,7 @@ import {
   linkHorizontal,
 } from 'd3';
 
-const width = 932;
+const width = 950;
 
 const customTree = data => {
   const root = hierarchy(data);
@@ -34,13 +34,13 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
   });
 
   const svg = select(ref)
-      .style('width', `${y1 - y0 + 150}px`)
+      .style('width', `${y1 - y0 + 240}px`)
       .style('height', `${x1 - x0 + 100}px`);
 
   const g = svg.append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 16)
-      .attr('transform', `translate(50,${root.dx - x0})`);
+      .attr('transform', `translate(120,${root.dx - x0})`);
 
   g.append('g')
     .attr('fill', 'none')
