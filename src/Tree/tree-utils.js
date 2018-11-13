@@ -9,7 +9,8 @@ const width = 932;
 
 const customTree = data => {
   const root = hierarchy(data);
-  root.dx = 18;
+  root.dx = 40;
+  console.log(data)
   root.dy = width / (root.height + 1);
   return tree().nodeSize([root.dx, root.dy])(root);
 }
@@ -34,8 +35,8 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
   });
 
   const svg = select(ref)
-      .style('width', `${y1 - y0 + 150}px`)
-      .style('height', `${x1 - x0 + 100}px`);
+      .style('width', `${y1 - y0 + 500}px`)
+      .style('height', `${x1 - x0 + 300}px`);
 
   const g = svg.append('g')
       .attr('font-family', 'sans-serif')
@@ -51,7 +52,7 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
     .data(root.links())
     .enter().append('path')
       .attr('d', linkHorizontal()
-          .x(d => d.y)
+          .x(d => d.y + 100)
           .y(d => d.x));
 
   const node = g.append('g')
@@ -60,7 +61,7 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
     .selectAll('g')
     .data(root.descendants().reverse())
     .enter().append('g')
-      .attr('transform', d => `translate(${d.y},${d.x})`)
+      .attr('transform', d => `translate(${d.y + 100},${d.x})`)
       .attr('class', 'tree__node')
       .on('mouseenter', onMouseEnter)
       .on('mouseleave', onMouseLeave);
