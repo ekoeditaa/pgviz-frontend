@@ -10,7 +10,7 @@ const width = 950;
 const customTree = data => {
   const root = hierarchy(data);
   root.dx = 18;
-  root.dy = width / (root.height + 1);
+  root.dy = Math.max(width / (root.height + 1), 120);
   return tree().nodeSize([root.dx, root.dy])(root);
 }
 

@@ -51,5 +51,6 @@
   position: fixed;
   border-radius: 8px;
   pointer-events: none;
+  z-index: 10;
   transform: translate(-10px, 30px);
 }
