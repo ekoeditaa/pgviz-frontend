@@ -22,7 +22,8 @@ class Dashboard extends PureComponent {
     this.setState({ loading: true });
     const data = await sendQuery(query);
 
-    setData(data);
+    if (data) setData(data);
+
     this.setState({ sentQuery: query });
   }
 

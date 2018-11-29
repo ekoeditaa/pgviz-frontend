@@ -1,7 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { event } from 'd3';
-import swal from 'sweetalert2';
 
 import { createTree, clearTree } from './tree-utils';
 import { transformToTree } from './utils';
@@ -9,26 +8,30 @@ import { transformToTree } from './utils';
 import './style.css';
 
 class Tree extends PureComponent {
-  root = createRef();
+  root1 = createRef();
+  root2 = createRef();
 
   componentDidUpdate(prevProps) {
     const { data } = this.props;
 
-    if (data['success'] === 'false') {
-      swal({
-        type: 'error',
-        title: 'Oops...',
-        text: 'There was an error with the query. Try another one!',
-      })
-    } else if (data !== prevProps.data) {
-      const treeData = transformToTree(data);
-      clearTree(this.root.current);
+    if (data !== prevProps.data) {
+      const [treeData1, treeData2] = transformToTree(data, prevProps.data);
+      clearTree(this.root1.current);
+      clearTree(this.root2.current);
       createTree(
-        treeData,
-        this.root.current,
+        treeData1,
+        this.root1.current,
         this.handleNodeEnter,
         this.handleNodeLeave,
       );
+      if (treeData2) {
+        createTree(
+          treeData2,
+          this.root2.current,
+          this.handleNodeEnter,
+          this.handleNodeLeave,
+        );
+      }
     }
   }
 
@@ -67,7 +70,8 @@ class Tree extends PureComponent {
         className="tree"
         onWheel={this.handleWheel}
       >
-        <svg ref={this.root} />
+        <svg ref={this.root1} />
+        <svg ref={this.root2} />
       </div>
     );
   }

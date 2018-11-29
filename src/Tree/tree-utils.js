@@ -5,13 +5,23 @@ import {
   linkHorizontal,
 } from 'd3';
 
-const width = 950;
+import {
+  DELETED_COLOR,
+  NEW_COLOR,
+  UPDATED_COLOR,
+  NORMAL_COLOR,
+  TEXT_COLOR,
+} from '../colors';
+
+const WIDTH = 950;
+
+const hasChildren = d => !!(d.children && d.children.length);
 
 const customTree = data => {
   const root = hierarchy(data);
 
   root.dx = 40;
-  root.dy = Math.max(width / (root.height + 1), 120);
+  root.dy = Math.max(WIDTH / (root.height + 1), 120);
 
   return tree().nodeSize([root.dx, root.dy])(root);
 }
@@ -37,7 +47,7 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
 
   const svg = select(ref)
       .style('width', `${y1 - y0 + 500}px`)
-      .style('height', `${x1 - x0 + 300}px`);
+      .style('height', `${x1 - x0 + 100}px`);
 
   const g = svg.append('g')
       .attr('font-family', 'sans-serif')
@@ -46,7 +56,7 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
 
   g.append('g')
     .attr('fill', 'none')
-    .attr('stroke', '#555')
+    .attr('stroke', NORMAL_COLOR)
     .attr('stroke-opacity', 0.4)
     .attr('stroke-width', 1.5)
   .selectAll('path')
@@ -68,13 +78,20 @@ function createTree(data, ref, onMouseEnter, onMouseLeave) {
       .on('mouseleave', onMouseLeave);
 
   node.append('circle')
-      .attr('fill', d => d.children ? '#336791' : '#999')
-      .attr('r', d => d.children ? 5 : 2);
+      .attr('fill', d => {
+        if (d.data.isDeleted) return DELETED_COLOR;
+        if (d.data.isNew) return NEW_COLOR;
+        if (d.data.isUpdated) return UPDATED_COLOR;
+        return NORMAL_COLOR;
+      })
+      .attr('r', d => hasChildren(d) ? 5 : 3);
 
   node.append('text')
       .attr('dy', '0.31em')
-      .attr('x', d => d.children ? -6 : 6)
-      .attr('text-anchor', d => d.children ? 'end' : 'start')
+      .attr('x', d => hasChildren(d) ? -6 : 6)
+      .attr('text-anchor', d => hasChildren(d) ? 'end' : 'start')
+      .attr('fill', d => d.data.isDeleted ? DELETED_COLOR : TEXT_COLOR)
+      .attr('text-decoration', d => d.data.isDeleted ? 'line-through' : null)
       .text(d => d.data.name)
     .clone(true).lower()
       .attr('stroke', 'white');

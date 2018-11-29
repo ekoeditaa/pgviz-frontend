@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+svg {
+  width: 0;
+  height: 0;
+}
+
 .tree__node:hover {
   fill: #336791;
   cursor: default;

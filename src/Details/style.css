@@ -1,8 +1,18 @@
 .details {
   font-size: 13px;
-  padding: 2px 10px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgba(50, 101, 143, .5);
-  background-color: #336791;
   color: white;
+  background-color: #336791;
+}
+
+.details pre {
+  padding: 0;
+  margin: 2px;
+}
+
+.details pre.details__change {
+  border-radius: 5px;
+  color: #333333;
 }
