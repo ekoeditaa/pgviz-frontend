@@ -27,7 +27,7 @@ import shallowEq from 'shallowequal';
       children: transformedChildren,
     };
 
-    if (start !== undefined && end !== undefined) {
+    if (start !== undefined && end !== undefined && !context.isDeleted) {
       result.highlight = [start, end];
     }
 
