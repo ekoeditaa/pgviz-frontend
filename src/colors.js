@@ -1,4 +1,4 @@
-export const DELETED_COLOR = '#DD281E';
+export const DELETED_COLOR = '#DDD';
 export const DELETED_COLOR_LIGHT = '#ffc9b8';
 export const UPDATED_COLOR = '#336791';
 export const NEW_COLOR = '#90B824';
