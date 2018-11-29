@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TextHighlight from '../TextHighlight';
+import TextDiff from '../TextDiff';
 import Details from '../Details';
 import { sendQuery } from './utils';
 
@@ -9,14 +10,17 @@ import './style.css';
 class Dashboard extends PureComponent {
   state = {
     query: '',
+    previousQuery: null,
     sentQuery: null,
     loading: false,
+    showDiff: false,
   };
 
+  toggleShowDiff = () => this.setState(({ showDiff }) => ({ showDiff: !showDiff }));
   setQuery = e => this.setState({ query: e.target.value });
 
   executeQuery = async () => {
-    const { query } = this.state;
+    const { query, sentQuery } = this.state;
     const { setData } = this.props;
 
     this.setState({ loading: true });
@@ -24,12 +28,13 @@ class Dashboard extends PureComponent {
 
     if (data) setData(data);
 
+    this.setState({ previousQuery: sentQuery });
     this.setState({ sentQuery: query });
   }
 
   render() {
     const { highlight, details, detailsPosition } = this.props;
-    const { query, sentQuery } = this.state;
+    const { query, sentQuery, previousQuery, showDiff } = this.state;
 
     return (
       <div className="dashboard">
@@ -56,6 +61,25 @@ class Dashboard extends PureComponent {
               </TextHighlight>
             )}
           </code>
+          {previousQuery && showDiff && (
+            <code className="dashboard__query-diff">
+              <TextDiff
+                current={sentQuery}
+                previous={previousQuery}
+              />
+            </code>
+          )}
+          {previousQuery && (
+            <button
+              type="button"
+              onClick={this.toggleShowDiff}
+              className="dashboard__show-diff"
+            >
+              {!showDiff
+                ? 'Changes'
+                : 'Highlights'}
+            </button>
+          )}
         </div>
         {details && (
           <div

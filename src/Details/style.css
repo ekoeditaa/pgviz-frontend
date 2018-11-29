@@ -3,8 +3,8 @@
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgba(50, 101, 143, .5);
-  color: white;
-  background-color: #336791;
+  background-color: white;
+  color: #336791;
 }
 
 .details pre {

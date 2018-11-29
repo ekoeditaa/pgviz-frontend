@@ -41,10 +41,30 @@
 .dashboard__sent-query {
   padding: 15px 20px;
   border-radius: 8px;
+  position: relative;
 }
 
 .dashboard__sent-query code {
   line-height: 150%;
+}
+
+.dashboard__query-diff {
+  position: absolute;
+  padding: 15px 20px;
+  left: 2px;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.dashboard button.dashboard__show-diff {
+  position: absolute;
+  top: -25px;
+  right: -8px;
+  padding: 5px 10px 8px 10px;
+  font-size: 11px;
 }
 
 .dashboard__details {

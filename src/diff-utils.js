@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * The function will return an array of tuples. For example:
  * [[DIFF_DELETE, 'SELECT'], [DIFF_INSERT, 'WHERE'], [DIFF_EQUAL, 'FROM']]
